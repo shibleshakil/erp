@@ -19,6 +19,7 @@
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset ('public/app-assets/vendors/css/vendors.min.css')}}">
     <!-- END: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset ('public/app-assets/vendors/css/forms/toggle/switchery.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('public/app-assets/vendors/css/extensions/toastr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('public/app-assets/css/plugins/forms/validation/form-validation.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('public/app-assets/vendors/css/forms/selects/select2.min.css')}}">
@@ -84,6 +85,8 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset ('public/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{ asset ('public/app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
+    <script src="{{ asset ('public/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js')}}"></script>
+    <script src="{{ asset ('public/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
     <script src="{{ asset ('public/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js')}}"></script>
     <script src="{{ asset ('public/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
     <script src="{{ asset ('public/app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>

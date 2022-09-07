@@ -6,7 +6,7 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-(function(window, document, $) {
+(function (window, document, $) {
   "use strict";
   var $html = $("html");
 
@@ -23,7 +23,7 @@
   var i = 0;
   if (Array.prototype.forEach) {
     var elems = $(".switchery");
-    $.each(elems, function(key, value) {
+    $.each(elems, function (key, value) {
       var $size = "",
         $color = "",
         $sizeClass = "",
@@ -70,3 +70,29 @@
   }
   /*  Toggle Ends   */
 })(window, document, jQuery);
+
+$(document).ready(function () {
+  $("#smtp_check").change(function () {
+    if (this.checked) {
+      $("#smtp-prop").removeClass('d-none');
+      $("#mail_transport").prop('required', true);
+      $("#mail_host").prop('required', true);
+      $("#mail_port").prop('required', true);
+      $("#mail_encryption").prop('required', true);
+      $("#mail_username").prop('required', true);
+      $("#mail_password").prop('required', true);
+      $("#mail_from_name").prop('required', true);
+      $("#mail_from_address").prop('required', true);
+    } else {
+      $("#smtp-prop").addClass('d-none');
+      $("#mail_transport").removeAttr('required');;
+      $("#mail_host").removeAttr('required');;
+      $("#mail_port").removeAttr('required');;
+      $("#mail_encryption").removeAttr('required');;
+      $("#mail_username").removeAttr('required');;
+      $("#mail_password").removeAttr('required');;
+      $("#mail_from_name").removeAttr('required');;
+      $("#mail_from_address").removeAttr('required');;
+    }
+  });
+});

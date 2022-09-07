@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('*',function($settings){
             $settings->with('setting', DB::table('settings')->find(1));
+            $settings->with('emailSetup', DB::table('email_setups')->find(1));
             $settings->with('chkurl', Route::currentRouteName());
 
             if (!session()->has('popup'))
