@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::match(['get', 'post'], 'profile/{id}/edit', 'App\Http\Controllers\HomeController@updateProfile')->name('updateProfile');
 Route::match(['get', 'post'], 'password/{id}/edit', 'App\Http\Controllers\HomeController@changePassword')->name('changePassword');
+Route::get('/make-quotation', 'App\Http\Controllers\HomeController@makeQuotation')->name('makeQuotation');
 
 Route::match(['get', 'post'], 'app-setting', 'App\Http\Controllers\Setup\AppController@appSetting')->name('appSetting');
 Route::match(['get', 'post'], 'email-setting', 'App\Http\Controllers\Setup\AppController@emailSetup')->name('emailSetup');

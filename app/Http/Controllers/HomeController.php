@@ -99,4 +99,8 @@ class HomeController extends Controller
 
         return view('auth.profile',compact('data'));
     }
+
+    public function makeQuotation(){
+        return view('makeQuotation');
+    }
 }
