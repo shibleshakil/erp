@@ -31,6 +31,9 @@
                     <li @if ($chkurl == 'emailSetup') class="active" @endif>
                         <a class="menu-item" href="{{ route ('emailSetup')}}" data-i18n="Email Setup">Email Setup</a>
                     </li>
+                    <li @if ($chkurl == 'category.index') class="active" @endif>
+                        <a class="menu-item" href="{{ route ('category.index')}}" data-i18n="Category">Category</a>
+                    </li>
                 </ul>
             </li>
         </ul>

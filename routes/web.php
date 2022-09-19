@@ -26,3 +26,11 @@ Route::get('/make-quotation', 'App\Http\Controllers\HomeController@makeQuotation
 
 Route::match(['get', 'post'], 'app-setting', 'App\Http\Controllers\Setup\AppController@appSetting')->name('appSetting');
 Route::match(['get', 'post'], 'email-setting', 'App\Http\Controllers\Setup\AppController@emailSetup')->name('emailSetup');
+
+Route::prefix('admin')->group(function(){
+    Route::delete('category/{id}', 'App\Http\Controllers\Back\CategoryController@delete')->name('category.delete');
+    Route::put('category/{id}', 'App\Http\Controllers\Back\CategoryController@restore')->name('category.restore');
+    Route::resource('category', 'App\Http\Controllers\Back\CategoryController')->parameters('category', 'id');
+    Route::post('category/update', 'App\Http\Controllers\Back\CategoryController@update')->name('category.update');
+
+});

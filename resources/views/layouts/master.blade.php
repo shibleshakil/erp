@@ -103,8 +103,8 @@
     <!-- END: Theme JS-->
     <!-- BEGIN: Page JS-->
     <script src="{{ asset ('public/app-assets/js/scripts/forms/form-repeater.js') }}"></script>
-    <!-- <script src="{{ asset ('public/assets/js/datatable.js') }}"></script> -->
-    <!-- <script src="{{ asset ('public/assets/js/common.js') }}"></script> -->
+    <script src="{{ asset ('public/assets/js/datatable.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/common.js') }}"></script>
     @yield('script')
     <!-- END: Page JS-->
     <script>
