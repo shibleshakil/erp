@@ -38,4 +38,11 @@ Route::prefix('admin')->group(function(){
     Route::resource('subCategory', 'App\Http\Controllers\Back\SubCategoryController')->parameters('subCategory', 'id');
     Route::post('subCategory/update', 'App\Http\Controllers\Back\SubCategoryController@update')->name('subCategory.update');
 
+    Route::delete('childCategory/{id}', 'App\Http\Controllers\Back\ChildCategoryController@delete')->name('childCategory.delete');
+    Route::put('childCategory/{id}', 'App\Http\Controllers\Back\ChildCategoryController@restore')->name('childCategory.restore');
+    Route::resource('childCategory', 'App\Http\Controllers\Back\ChildCategoryController')->parameters('childCategory', 'id');
+    Route::post('childCategory/update', 'App\Http\Controllers\Back\ChildCategoryController@update')->name('childCategory.update');
+
 });
+
+Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');
