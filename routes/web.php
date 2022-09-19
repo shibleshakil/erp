@@ -48,6 +48,11 @@ Route::prefix('admin')->group(function(){
     Route::resource('appliance', 'App\Http\Controllers\Back\ApplianceController')->parameters('appliance', 'id');
     Route::post('appliance/update', 'App\Http\Controllers\Back\ApplianceController@update')->name('appliance.update');
 
+    Route::delete('applianceAttribute/{id}', 'App\Http\Controllers\Back\ApplianceAttributeController@delete')->name('applianceAttribute.delete');
+    Route::put('applianceAttribute/{id}', 'App\Http\Controllers\Back\ApplianceAttributeController@restore')->name('applianceAttribute.restore');
+    Route::resource('applianceAttribute', 'App\Http\Controllers\Back\ApplianceAttributeController')->parameters('applianceAttribute', 'id');
+    Route::post('applianceAttribute/update', 'App\Http\Controllers\Back\ApplianceAttributeController@update')->name('applianceAttribute.update');
+
 });
 
 Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');

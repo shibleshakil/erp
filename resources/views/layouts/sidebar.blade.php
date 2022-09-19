@@ -43,6 +43,9 @@
                     <li @if ($chkurl == 'appliance.index') class="active" @endif>
                         <a class="menu-item" href="{{ route ('appliance.index')}}" data-i18n="Appliances">Appliances</a>
                     </li>
+                    <li @if ($chkurl == 'applianceAttribute.index') class="active" @endif>
+                        <a class="menu-item" href="{{ route ('applianceAttribute.index')}}" data-i18n="Appliance Attributes">Appliance Attributes</a>
+                    </li>
                 </ul>
             </li>
         </ul>
