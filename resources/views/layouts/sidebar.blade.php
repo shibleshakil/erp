@@ -34,6 +34,9 @@
                     <li @if ($chkurl == 'category.index') class="active" @endif>
                         <a class="menu-item" href="{{ route ('category.index')}}" data-i18n="Category">Category</a>
                     </li>
+                    <li @if ($chkurl == 'subCategory.index') class="active" @endif>
+                        <a class="menu-item" href="{{ route ('subCategory.index')}}" data-i18n="Sub Category">Sub Category</a>
+                    </li>
                 </ul>
             </li>
         </ul>

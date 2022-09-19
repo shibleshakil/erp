@@ -33,4 +33,9 @@ Route::prefix('admin')->group(function(){
     Route::resource('category', 'App\Http\Controllers\Back\CategoryController')->parameters('category', 'id');
     Route::post('category/update', 'App\Http\Controllers\Back\CategoryController@update')->name('category.update');
 
+    Route::delete('subCategory/{id}', 'App\Http\Controllers\Back\SubCategoryController@delete')->name('subCategory.delete');
+    Route::put('subCategory/{id}', 'App\Http\Controllers\Back\SubCategoryController@restore')->name('subCategory.restore');
+    Route::resource('subCategory', 'App\Http\Controllers\Back\SubCategoryController')->parameters('subCategory', 'id');
+    Route::post('subCategory/update', 'App\Http\Controllers\Back\SubCategoryController@update')->name('subCategory.update');
+
 });

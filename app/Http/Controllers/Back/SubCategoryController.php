@@ -8,24 +8,21 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use App\Models\Category;
+use App\Models\SubCategory;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
-    private $categories;
-
-    public function __construct(){
-        $this->categories = Category::get();
-    }
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $datas = $this->categories->reverse();
+        $categories = Category::where('is_active', 1)->orderBy('name')->get();
+        $datas = SubCategory::get()->reverse();
         $sl = 0;
-         return view('category.index', compact('datas', 'sl'));
+        return view('subCategory.index', compact('categories', 'datas', 'sl'));
     }
 
     /**
@@ -47,20 +44,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'unique:categories'],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:sub_categories,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
-            $data = new Category;
+            $data = new SubCategory;
             $data->name = $request->name;
+            $data->category_id = $request->category_id;
             $data->is_active = 1;
             $data->created_by = Auth()->user()->id;
             $data->save();
             DB::commit();
 
-            return back()->with('success', 'New Category Created Successfully');
+            return back()->with('success', 'New Sub Category Created Successfully');
             
         } catch (\Throwable $th) {
             DB::rollback();
@@ -99,27 +98,31 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
-            'name' => ['required', 'unique:categories,name,' . $request->id],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:sub_categories,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
-            $data = Category::find($request->id);
+            $data = SubCategory::find($request->id);
             $data->name = $request->name;
+            $data->category_id = $request->category_id;
             $data->is_active = 1;
             $data->updated_by = Auth()->user()->id;
             $data->save();
             DB::commit();
 
-            return back()->with('success', 'Category Updated Successfully');
+            return back()->with('success', 'Sub Category Updated Successfully');
             
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', 'Somethings went wrong. Try Again');
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -131,13 +134,13 @@ class CategoryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = Category::findorFail($id);
+            $data = SubCategory::findorFail($id);
             $data->is_active = 0;
             $data->deleted_by = Auth()->user()->id;
             $data->deleted_at = date('Y-m-d H:i:s');
             $data->save();
             DB::commit();
-            return 'Category Inactive Successfully!';
+            return 'Sub Category Inactive Successfully!';
         } catch (\Throwable $th) {
             DB::rollback();
             return 'Somrthings Went Wrong!';
@@ -148,16 +151,15 @@ class CategoryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = Category::find($id);
+            $data = SubCategory::find($id);
             $data->is_active = 1;
             $data->updated_by = Auth()->user()->id;
             $data->save();
             DB::commit();
-            return 'Category Activated Successfully!';
+            return 'Sub Category Activated Successfully!';
         } catch (\Throwable $th) {
             DB::rollback();
             return 'Somrthings Went Wrong!';
         }
     }
-
 }
