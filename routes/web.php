@@ -43,6 +43,11 @@ Route::prefix('admin')->group(function(){
     Route::resource('childCategory', 'App\Http\Controllers\Back\ChildCategoryController')->parameters('childCategory', 'id');
     Route::post('childCategory/update', 'App\Http\Controllers\Back\ChildCategoryController@update')->name('childCategory.update');
 
+    Route::delete('appliance/{id}', 'App\Http\Controllers\Back\ApplianceController@delete')->name('appliance.delete');
+    Route::put('appliance/{id}', 'App\Http\Controllers\Back\ApplianceController@restore')->name('appliance.restore');
+    Route::resource('appliance', 'App\Http\Controllers\Back\ApplianceController')->parameters('appliance', 'id');
+    Route::post('appliance/update', 'App\Http\Controllers\Back\ApplianceController@update')->name('appliance.update');
+
 });
 
 Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');
