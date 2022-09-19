@@ -48,6 +48,11 @@ Route::prefix('admin')->group(function(){
     Route::resource('appliance', 'App\Http\Controllers\Back\ApplianceController')->parameters('appliance', 'id');
     Route::post('appliance/update', 'App\Http\Controllers\Back\ApplianceController@update')->name('appliance.update');
 
+    Route::delete('accessories/{id}', 'App\Http\Controllers\Back\AccessoriesController@delete')->name('accessories.delete');
+    Route::put('accessories/{id}', 'App\Http\Controllers\Back\AccessoriesController@restore')->name('accessories.restore');
+    Route::resource('accessories', 'App\Http\Controllers\Back\AccessoriesController')->parameters('accessories', 'id');
+    Route::post('accessories/update', 'App\Http\Controllers\Back\AccessoriesController@update')->name('accessories.update');
+
     Route::delete('applianceAttribute/{id}', 'App\Http\Controllers\Back\ApplianceAttributeController@delete')->name('applianceAttribute.delete');
     Route::put('applianceAttribute/{id}', 'App\Http\Controllers\Back\ApplianceAttributeController@restore')->name('applianceAttribute.restore');
     Route::resource('applianceAttribute', 'App\Http\Controllers\Back\ApplianceAttributeController')->parameters('applianceAttribute', 'id');
