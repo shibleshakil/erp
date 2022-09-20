@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 <form class="form" action="#" method="post" enctype="multipart/form-data">@csrf
                                     <div class="form-body">
-                                        <h4 class="form-section"><i class="fa-solid fa-user-tie text-dark"></i> Customer Personal Information</h4>
+                                        <h4 class="form-section text-dark"><i class="fa-solid fa-user-tie text-dark"></i> Customer Personal Information</h4>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="customer_name">Full Name<span class="text-danger">*</span></label>
@@ -51,9 +51,9 @@
                                                 value="{{old('customer_mobile')}}" name="customer_mobile" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label for="customer_id_card_no">ID Card No.<span class="text-danger">*</span></label>
-                                                <input type="text" id="customer_id_card_no" class="form-control" placeholder="Customer ID No." 
-                                                value="{{old('customer_id_card_no')}}" name="customer_id_card_no" required>
+                                                <label for="customer_enirates_id_no">Emirates ID Number<span class="text-danger">*</span></label>
+                                                <input type="text" id="customer_enirates_id_no" class="form-control" placeholder="Customer Emirates ID Number" 
+                                                value="{{old('customer_enirates_id_no')}}" name="customer_enirates_id_no" required>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="customer_email">Email</label>
@@ -61,7 +61,7 @@
                                                 value="{{old('customer_email')}}" name="customer_email">
                                             </div>
                                         </div>
-                                        <h4 class="form-section"><i class="fa-solid fa-magnifying-glass-plus text-dark"></i> Customer Requirements</h4>
+                                        <h4 class="form-section text-dark"><i class="fa-solid fa-file-pen"></i> Customer Requirements</h4>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="item">Select Item</label>
