@@ -21,6 +21,11 @@
                     </li>
                 </ul>
             </li> -->
+            <li @if ($chkurl == 'salesman.index') class="active" @else  class="nav-item"@endif>
+                <a href="{{ route ('salesman.index') }}"><i class="fa-solid fa-users"></i><span class="menu-title"
+                    data-i18n="Salesman">Salesman</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="#"><i class="feather icon-settings"></i><span class="menu-title"
                 data-i18n="Setup">Setup</span></a>
