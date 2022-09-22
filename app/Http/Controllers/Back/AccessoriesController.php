@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use DB;
+use App\Models\Category;
 use App\Models\Accessories;
 
 class AccessoriesController extends Controller
@@ -24,8 +25,9 @@ class AccessoriesController extends Controller
     public function index()
     {
         $datas = $this->accessories->reverse();
+        $categories = Category::where('is_active', 1)->orderBy('name')->get();
         $sl = 0;
-         return view('accessories.index', compact('datas', 'sl'));
+         return view('accessories.index', compact('datas', 'categories', 'sl'));
     }
 
     /**
@@ -47,13 +49,15 @@ class AccessoriesController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'unique:accessories'],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:appliances,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
             $data = new Accessories;
+            $data->category_id = $request->category_id;
             $data->name = $request->name;
             $data->is_active = 1;
             $data->created_by = Auth()->user()->id;
@@ -100,13 +104,15 @@ class AccessoriesController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'unique:accessories,name,' . $request->id],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:appliances,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
             $data = Accessories::find($request->id);
+            $data->category_id = $request->category_id;
             $data->name = $request->name;
             $data->is_active = 1;
             $data->updated_by = Auth()->user()->id;

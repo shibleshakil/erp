@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use App\Models\Appliance;
+use App\Models\Accessories;
 
 class HomeController extends Controller
 {
@@ -109,6 +110,7 @@ class HomeController extends Controller
         $subcategories = SubCategory::where('is_active', 1)->orderBy('name')->get();
         $childcategories = ChildCategory::where('is_active', 1)->orderBy('name')->get();
         $appliances = Appliance::where('is_active', 1)->orderBy('name')->get();
-        return view('makeQuotation', compact('categories', 'subcategories', 'childcategories', 'appliances'));
+        $accessories = Accessories::where('is_active', 1)->orderBy('name')->get();
+        return view('makeQuotation', compact('categories', 'subcategories', 'childcategories', 'appliances', 'accessories'));
     }
 }

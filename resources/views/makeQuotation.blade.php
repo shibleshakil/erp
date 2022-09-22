@@ -90,17 +90,19 @@
                                                     $counterTops = [];
                                                     $glasss = [];
                                                     $catappliances = [];
+                                                    $cataccessory = [];
 
-                                                    $carcasId = $subcategories->where('name', "CARCASS")->where('category_id', $cat->id)->first();
-                                                    $sutterId = $subcategories->where('name', "SHUTTER")->where('category_id', $cat->id)->first();
-                                                    $lippingId = $subcategories->where('name', "LIPPING")->where('category_id', $cat->id)->first();
-                                                    $handleId = $subcategories->where('name', "HANDLE")->where('category_id', $cat->id)->first();
-                                                    $marbleId = $subcategories->where('name', "MARBLE")->where('category_id', $cat->id)->first();
-                                                    $lightId = $subcategories->where('name', "LIGHT")->where('category_id', $cat->id)->first();
-                                                    $sinkId = $subcategories->where('name', "SINK")->where('category_id', $cat->id)->first();
-                                                    $counterTopId = $subcategories->where('name', "COUNTER TOP")->where('category_id', $cat->id)->first();
-                                                    $glassId = $subcategories->where('name', "GLASS")->where('category_id', $cat->id)->first();
+                                                    $carcasId = $subcategories->where('name', "Carcass")->where('category_id', $cat->id)->first();
+                                                    $sutterId = $subcategories->where('name', "Shutter")->where('category_id', $cat->id)->first();
+                                                    $lippingId = $subcategories->where('name', "Lipping")->where('category_id', $cat->id)->first();
+                                                    $handleId = $subcategories->where('name', "Handle")->where('category_id', $cat->id)->first();
+                                                    $marbleId = $subcategories->where('name', "Marble")->where('category_id', $cat->id)->first();
+                                                    $lightId = $subcategories->where('name', "Light")->where('category_id', $cat->id)->first();
+                                                    $sinkId = $subcategories->where('name', "Sink")->where('category_id', $cat->id)->first();
+                                                    $counterTopId = $subcategories->where('name', "Counter Top")->where('category_id', $cat->id)->first();
+                                                    $glassId = $subcategories->where('name', "Glass")->where('category_id', $cat->id)->first();
                                                     $catappliances = $appliances->where('category_id', $cat->id);
+                                                    $cataccessory = $accessories->where('category_id', $cat->id);
 
                                                     if($carcasId){
                                                         $carcases = $childcategories->where('sub_category_id', $carcasId->id);
@@ -147,8 +149,9 @@
                                                 <div class="col-md-6 form-group">
                                                     <label for="measurement_{{$cat->id}}">Carcass Measurement <small>(in inches)</small> </label>
                                                     <div class="input-group ">
-                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="length (in inches)">
-                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="total height (in feet)">
+                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="total length (in feet)">
+                                                        <!-- <input type="text" id="width_{{$cat->id}}" name="width[]" class="form-control custom-input-group" placeholder="width (in feet)"> -->
+                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="height (in inches)">
                                                     </div>
                                                 </div>
                                                 @endif
@@ -164,8 +167,9 @@
                                                 <div class="col-md-6 form-group">
                                                     <label for="door_measurement_{{$cat->id}}">Shutter Measurement</label>
                                                     <div class="input-group ">
-                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="length (in inches)">
-                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="total height (in feet)">
+                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="total length (in feet)">
+                                                        <!-- <input type="text" id="width_{{$cat->id}}" name="width[]" class="form-control custom-input-group" placeholder="width (in feet)"> -->
+                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="height (in inches)">
                                                     </div>
                                                 </div>
                                                 @endif
@@ -258,6 +262,22 @@
                                                 <div class="col-md-6 form-group">
                                                     <label for="appliance_size_{{$cat->id}}">Appliances size</label>
                                                     <input type="text" name="appliance_size[]" id="appliance_size_{{$cat->id}}" class="form-control" placeholder="Appliance size">
+                                                </div>
+                                                @endif
+                                                @if(sizeof($cataccessory) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="accessory_{{$cat->id}}">Accessories</label>
+                                                    <select name="accessory[]" id="accessory_{{$cat->id}}" onchange="getEachAppliance(this)" 
+                                                    data-count="{{$cat->id}}" class="select2 form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($cataccessory as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="appliance_size_{{$cat->id}}">Accessories Quantity</label>
+                                                    <input type="text" name="appliance_size[]" id="appliance_size_{{$cat->id}}" class="form-control" placeholder="Accessories Quantity">
                                                 </div>
                                                 @endif
                                             </div>

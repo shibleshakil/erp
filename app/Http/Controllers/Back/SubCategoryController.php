@@ -52,7 +52,7 @@ class SubCategoryController extends Controller
 
         try {
             $data = new SubCategory;
-            $data->name = strtoupper($request->name);
+            $data->name = ucwords(strtolower($request->name));
             $data->category_id = $request->category_id;
             $data->is_active = 1;
             $data->created_by = Auth()->user()->id;
@@ -108,7 +108,7 @@ class SubCategoryController extends Controller
 
         try {
             $data = SubCategory::find($request->id);
-            $data->name = strtoupper($request->name);
+            $data->name = ucwords(strtolower($request->name));
             $data->category_id = $request->category_id;
             $data->is_active = 1;
             $data->updated_by = Auth()->user()->id;

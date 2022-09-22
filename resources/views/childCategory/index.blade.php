@@ -209,12 +209,6 @@
                 getSubCatAgainstCat(id, url, '#sub_category_id');
             }
         });
-        $("#ecategory_id").on("change", function(){
-            var id = $(this).val();
-            if (id != '') {
-                getSubCatAgainstCat(id, url, '#esub_category_id');
-            }
-        });
         $("#editchildCategory").on("show.bs.modal", function (e) {
             var id = $(e.relatedTarget).data('target-id');
             var name = $(e.relatedTarget).data('name');
@@ -225,6 +219,14 @@
             $('.modal-body #ename').val(name);
             $('.modal-body #ecategory_id').val(category_id).change();
             $('.modal-body #esub_category_id').val(sub_category_id).change();
+
+            
+            $("#ecategory_id").on("change", function(){
+                var id = $(this).val();
+                if (id != '') {
+                    getSubCatAgainstCat(id, url, '#esub_category_id');
+                }
+            });
 
         });
 

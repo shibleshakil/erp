@@ -11,4 +11,8 @@ class Accessories extends Model
 
     protected $table = 'accessories'; 
     protected $fillable = ['name'];
+        
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }
