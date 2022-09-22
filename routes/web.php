@@ -66,3 +66,4 @@ Route::prefix('admin')->group(function(){
 });
 
 Route::get('getSubCatAgainstCat', 'App\Http\Controllers\CommonController@getSubCatAgainstCat')->name('getSubCatAgainstCat');
+Route::get('getEachApplianceAttr', 'App\Http\Controllers\CommonController@getEachApplianceAttr')->name('getEachApplianceAttr');

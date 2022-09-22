@@ -69,3 +69,37 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .phone {
 	-moz-appearance: textfield !important;
 }
+
+.item-check-label {
+	font-size: x-large;
+	display: flex;
+	border-bottom: 1px solid #e0e0e0;
+	padding-bottom: 10px;
+}
+
+.item-check-label-text {
+	width: 90%;
+}
+
+.item-property {
+	border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 10px;
+}
+
+.custom-input-group {
+	border-radius: 0.25rem !important;
+}
+
+.chkbox-label {
+	font-size: 1.32rem;
+	cursor: pointer;
+}
+
+.chkbox-label input {
+	cursor: pointer;
+}
+
+.custom-chkbox {
+	height: 1.32rem;
+	width: 1.32rem;
+}

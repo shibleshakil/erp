@@ -52,6 +52,7 @@
                                                 <tr>
                                                     <th>Sl</th>
                                                     <th>Name</th>
+                                                    <th>Category</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -62,11 +63,12 @@
                                                         <tr>
                                                             <td>{{++$sl}}</td>
                                                             <td>{{$data->name}}</td>
+                                                            <td>{{$data->category_id ? $data->category->name : ''}}</td>
                                                             <td>{{($data->is_active == 1) ? 'Active' : 'Inactive'}}</td>
                                                             <td>
                                                                 @if($data->is_active == 1)
                                                                     <a data-toggle="modal"data-target="#editAppliance" data-target-id="{{$data->id}}"
-                                                                        data-name="{{$data->name}}" >
+                                                                        data-name="{{$data->name}}" data-category_id="{{$data->category_id}}" >
                                                                         <button type="button" title="Edit" class="btn btn-icon btn-outline-primary btn-sm">
                                                                         <i class="fa fa-pencil-square"></i></button>
                                                                     </a>
@@ -89,6 +91,7 @@
                                                 <tr>
                                                     <th>Sl</th>
                                                     <th>Name</th>
+                                                    <th>Category</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -118,6 +121,14 @@
                     <form action="{{ route ('appliance.store')}}" method="post"  class="clearForm form" 
                         enctype="multipart/form-data">@csrf
                         <div class="modal-body">
+                            <fieldset class="form-group floating-label-form-group">
+                                <label for="category_id">Select Category<span class="text-danger">*</span></label>
+                                <select name="category_id" id="category_id" class="select2 form-control" required>
+                                    @foreach ($categories as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach    
+                                </select>
+                            </fieldset>
                             <fieldset class="form-group floating-label-form-group">
                                 <label for="name">Appliance Name<span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Appliance Name" required>
@@ -149,6 +160,14 @@
                         <div class="modal-body">
                             <input type="hidden" name="id" id="id">
                             <fieldset class="form-group floating-label-form-group">
+                                <label for="ecategory_id">Select Category<span class="text-danger">*</span></label>
+                                <select name="category_id" id="ecategory_id" class="select2 form-control" required>
+                                    @foreach ($categories as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach    
+                                </select>
+                            </fieldset>
+                            <fieldset class="form-group floating-label-form-group">
                                 <label for="name">Appliance Name<span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control" id="ename" placeholder="Appliance Name" required>
                             </fieldset>
@@ -169,9 +188,11 @@
         $("#editAppliance").on("show.bs.modal", function (e) {
             var id = $(e.relatedTarget).data('target-id');
             var name = $(e.relatedTarget).data('name');
+            var category_id = $(e.relatedTarget).data('category_id');
 
             $('.modal-body #id').val(id);
             $('.modal-body #ename').val(name);
+            $('.modal-body #ecategory_id').val(category_id).change();
 
         });
 

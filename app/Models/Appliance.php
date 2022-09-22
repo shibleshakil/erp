@@ -12,4 +12,8 @@ class Appliance extends Model
     protected $table = 'appliances';
 
     protected $fillable = ['name'];
+    
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

@@ -62,80 +62,210 @@
                                             </div>
                                         </div>
                                         <h4 class="form-section text-dark"><i class="fa-solid fa-file-pen"></i> Customer Requirements</h4>
-                                        <div class="row">
-                                            <div class="col-md-6 form-group">
-                                                <label for="item">Select Item</label>
-                                                <select name="item" id="item" class="select2 form-control">
-                                                    <option value="Kitchen">Kitchen</option>
-                                                </select>
+                                        @if (sizeof($categories) > 0)
+                                            @foreach ($categories as $cat)
+                                            <!-- <div class="row">
+                                                <div class="col-md-12 form-group mb-0">
+                                                    <label for="iteam_{{$cat->id}}" class="item-check-label">
+                                                        <input type="checkbox" name="" data-itemno="{{$cat->id}}" class="form-control item-check" value="{{$cat->id}}" id="iteam_{{$cat->id}}">
+                                                        <span class="item-check-label-text">{{$cat->name}}</span>
+                                                    </label>
+                                                </div>
+                                            </div> -->
+                                            <fieldset class="checkboxsas">
+                                                <label class="chkbox-label">
+                                                    <input type="checkbox" data-itemno="{{$cat->id}}" value="{{$cat->id}}" id="iteam_{{$cat->id}}" class="custom-chkbox item-check">
+                                                    {{$cat->name}}
+                                                </label>
+                                            </fieldset>
+                                            <div class="row item-property d-none" id="property_{{$cat->id}}">
+                                                @php
+                                                    $carcases = [];
+                                                    $sutters = [];
+                                                    $lippings = [];
+                                                    $handles = [];
+                                                    $marbles = [];
+                                                    $lights = [];
+                                                    $sinks = [];
+                                                    $counterTops = [];
+                                                    $glasss = [];
+                                                    $catappliances = [];
+
+                                                    $carcasId = $subcategories->where('name', "CARCASS")->where('category_id', $cat->id)->first();
+                                                    $sutterId = $subcategories->where('name', "SHUTTER")->where('category_id', $cat->id)->first();
+                                                    $lippingId = $subcategories->where('name', "LIPPING")->where('category_id', $cat->id)->first();
+                                                    $handleId = $subcategories->where('name', "HANDLE")->where('category_id', $cat->id)->first();
+                                                    $marbleId = $subcategories->where('name', "MARBLE")->where('category_id', $cat->id)->first();
+                                                    $lightId = $subcategories->where('name', "LIGHT")->where('category_id', $cat->id)->first();
+                                                    $sinkId = $subcategories->where('name', "SINK")->where('category_id', $cat->id)->first();
+                                                    $counterTopId = $subcategories->where('name', "COUNTER TOP")->where('category_id', $cat->id)->first();
+                                                    $glassId = $subcategories->where('name', "GLASS")->where('category_id', $cat->id)->first();
+                                                    $catappliances = $appliances->where('category_id', $cat->id);
+
+                                                    if($carcasId){
+                                                        $carcases = $childcategories->where('sub_category_id', $carcasId->id);
+                                                    }
+                                                    if($sutterId){
+                                                        $sutters = $childcategories->where('sub_category_id', $sutterId->id);
+                                                    }
+                                                    if($lippingId){
+                                                        $lippings = $childcategories->where('sub_category_id', $lippingId->id);
+                                                    }
+                                                    if($handleId){
+                                                        $handles = $childcategories->where('sub_category_id', $handleId->id);
+                                                    }
+                                                    if($marbleId){
+                                                        $marbles = $childcategories->where('sub_category_id', $marbleId->id);
+                                                    }
+                                                    if($lightId){
+                                                        $lights = $childcategories->where('sub_category_id', $lightId->id);
+                                                    }
+                                                    if($sinkId){
+                                                        $sinks = $childcategories->where('sub_category_id', $sinkId->id);
+                                                    }
+                                                    if($counterTopId){
+                                                        $counterTops = $childcategories->where('sub_category_id', $counterTopId->id);
+                                                    }
+                                                    if($glassId){
+                                                        $glasss = $childcategories->where('sub_category_id', $glassId->id);
+                                                    }
+                                                @endphp
+                                                <div class="col-md-6 form-group">
+                                                    <label for="quantity_{{$cat->id}}">{{$cat->name}} Quantity</label>
+                                                    <input type="number" id="quantity_{{$cat->id}}" class="form-control" placeholder="{{$cat->name}} Quantity" 
+                                                    value="{{old('quantity')}}" name="quantity[]">
+                                                </div>
+                                                @if(sizeof($carcases) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="carcass_{{$cat->id}}">Carcass Made of</label>
+                                                    <select name="carcass[]" id="carcass_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($carcases as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="measurement_{{$cat->id}}">Carcass Measurement <small>(in inches)</small> </label>
+                                                    <div class="input-group ">
+                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="length (in inches)">
+                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="total height (in feet)">
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($sutters) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="door_shutter_{{$cat->id}}">Shutter Made of</label>
+                                                    <select name="door_shutter[]" id="door_shutter_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($sutters as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="door_measurement_{{$cat->id}}">Shutter Measurement</label>
+                                                    <div class="input-group ">
+                                                        <input type="text" id="length_{{$cat->id}}" name="length[]" class="form-control custom-input-group mr-10" placeholder="length (in inches)">
+                                                        <input type="text" id="height_{{$cat->id}}" name="height[]" class="form-control custom-input-group" placeholder="total height (in feet)">
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($lippings) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="lipping_with_{{$cat->id}}">Lipping With</label>
+                                                    <select name="lipping_with[]" id="lipping_with_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($lippings as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($handles) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="handle_type_{{$cat->id}}">Handle Type</label>
+                                                    <select name="handle_type[]" id="handle_type_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($handles as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($marbles) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="marbile_type_{{$cat->id}}">Marbile Type</label>
+                                                    <select name="marbile_type" id="marbile_type_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($marbles as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($lights) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="lighting_{{$cat->id}}">Lighting</label>
+                                                    <select name="lighting[]" id="lighting_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($lights as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($sinks) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="sink_{{$cat->id}}">Sink</label>
+                                                    <select name="sink[]" id="sink_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($sinks as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($counterTops) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="counter_top_{{$cat->id}}">Counter Tops</label>
+                                                    <select name="counter_top[]" id="counter_top_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($counterTops as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($glasss) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="glass_{{$cat->id}}">Glass</label>
+                                                    <select name="glass[]" id="glass_{{$cat->id}}" class="select2 form-control">
+                                                        @foreach ($glasss as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                @if(sizeof($catappliances) > 0)
+                                                <div class="col-md-6 form-group">
+                                                    <label for="appliances_{{$cat->id}}">Appliances</label>
+                                                    <select name="appliances[]" id="appliances_{{$cat->id}}" onchange="getEachAppliance(this)" 
+                                                    data-count="{{$cat->id}}" class="select2 form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($catappliances as $type)
+                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="appliances_pro_{{$cat->id}}">Appliances Property</label>
+                                                    <select name="appliances_pro[]" id="appliances_pro_{{$cat->id}}" data-count="{{$cat->id}}" class="select2 form-control">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="appliance_size_{{$cat->id}}">Appliances size</label>
+                                                    <input type="text" name="appliance_size[]" id="appliance_size_{{$cat->id}}" class="form-control" placeholder="Appliance size">
+                                                </div>
+                                                @endif
                                             </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="carcass">Carcass Made of</label>
-                                                <select name="carcass" id="carcass" class="select2 form-control">
-                                                    <option value="MDF">MDF</option>
-                                                    <option value="WOOD">WOOD</option>
-                                                    <option value="Aluminium">Aluminium</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="door_shutter">Door Shutter Made of</label>
-                                                <select name="door_shutter" id="door_shutter" class="select2 form-control">
-                                                    <option value="HPL">HPL</option>
-                                                    <option value="AGT">AGT</option>
-                                                    <option value="Egger">Egger</option>
-                                                    <option value="PVC">PVC</option>
-                                                    <option value="Aluminium">Aluminium</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="lipping_with">Lipping With</label>
-                                                <select name="lipping_with" id="lipping_with" class="select2 form-control">
-                                                    <option value="Normal">Normal</option>
-                                                    <option value="Aluminium">Aluminium</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="handle_type">Handle Type</label>
-                                                <select name="handle_type" id="handle_type" class="select2 form-control">
-                                                    <option value="Type 1">Type 1</option>
-                                                    <option value="Type 2">Type 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="marbile_type">Marbile Type</label>
-                                                <select name="marbile_type" id="marbile_type" class="select2 form-control">
-                                                    <option value="Type 1">Type 1</option>
-                                                    <option value="Type 2">Type 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="led_lighting">LED Lighting</label>
-                                                <select name="led_lighting" id="led_lighting" class="select2 form-control">
-                                                    <option value="">Select</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="appliances">Appliances</label>
-                                                <select name="appliances" id="appliances" class="select2 form-control">
-                                                    <option value="">Select</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="sink">Sink</label>
-                                                <select name="sink" id="sink" class="select2 form-control">
-                                                    <option value="">Select</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="glass">Glass</label>
-                                                <select name="glass" id="glass" class="select2 form-control">
-                                                    <option value="">Select</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @endif
                                     </div>
 
-                                    <div class="form-actions right">
+                                    <div class="form-actions right border-0">
                                         <button type="submit" id="submitBtn" class="btn btn-primary">
                                             <i class="fa fa-check-square-o"></i> Submit
                                         </button>
@@ -152,4 +282,26 @@
 </div>
 @endsection
 @section('script')
+    <script type="text/javascript">
+        $(".item-check").change(function() {
+            var itemNo = $(this).attr('data-itemno');
+            if(this.checked) {
+                $("#property_" + itemNo).removeClass('d-none');
+            }else{
+                $("#property_" + itemNo).addClass('d-none');
+            }
+        });
+
+        function getEachAppliance(attrAgApp) {
+            // stopPropagation();
+            var target = $(attrAgApp).attr('data-count');
+            var appId = $(attrAgApp).val();
+            var url = "{{  route ('getEachApplianceAttr') }}";
+            var toview = "#appliances_pro_"+target;
+            if (appId != '') {
+                getEachApplianceAttr(appId, url, toview);
+            }
+        }
+
+    </script>
 @endsection

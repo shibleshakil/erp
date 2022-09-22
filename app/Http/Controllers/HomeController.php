@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use DB;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
+use App\Models\Appliance;
 
 class HomeController extends Controller
 {
@@ -101,6 +105,10 @@ class HomeController extends Controller
     }
 
     public function makeQuotation(){
-        return view('makeQuotation');
+        $categories = Category::where('is_active', 1)->get();
+        $subcategories = SubCategory::where('is_active', 1)->orderBy('name')->get();
+        $childcategories = ChildCategory::where('is_active', 1)->orderBy('name')->get();
+        $appliances = Appliance::where('is_active', 1)->orderBy('name')->get();
+        return view('makeQuotation', compact('categories', 'subcategories', 'childcategories', 'appliances'));
     }
 }

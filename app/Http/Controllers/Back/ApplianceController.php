@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use App\Models\Appliance;
+use App\Models\Category;
 
 class ApplianceController extends Controller
 {
@@ -24,8 +25,9 @@ class ApplianceController extends Controller
     public function index()
     {
         $datas = $this->appliances->reverse();
+        $categories = Category::where('is_active', 1)->orderBy('name')->get();
         $sl = 0;
-         return view('appliance.index', compact('datas', 'sl'));
+         return view('appliance.index', compact('datas', 'categories', 'sl'));
     }
 
     /**
@@ -47,13 +49,15 @@ class ApplianceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'unique:appliances'],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:appliances,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
             $data = new Appliance;
+            $data->category_id = $request->category_id;
             $data->name = $request->name;
             $data->is_active = 1;
             $data->created_by = Auth()->user()->id;
@@ -64,6 +68,7 @@ class ApplianceController extends Controller
             
         } catch (\Throwable $th) {
             DB::rollback();
+            return back()->with('error', $th->getMessage());
             return back()->with('error', 'Somethings went wrong. Try Again');
         }
     }
@@ -100,13 +105,15 @@ class ApplianceController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'unique:appliances,name,' . $request->id],
+            'category_id' => ['required'],
+            'name' => ['required', 'unique:appliances,name,'.$request->id.',id,category_id,'.$request->category_id],
         ]);
 
         DB::beginTransaction();
 
         try {
             $data = Appliance::find($request->id);
+            $data->category_id = $request->category_id;
             $data->name = $request->name;
             $data->is_active = 1;
             $data->updated_by = Auth()->user()->id;

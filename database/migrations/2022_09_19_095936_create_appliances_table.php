@@ -15,7 +15,7 @@ class CreateAppliancesTable extends Migration
     {
         Schema::create('appliances', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->tinyInteger('is_active')->default(1);
             $table->UnsignedBigInteger('created_by')->Unsigned()->nullable();
             $table->UnsignedBigInteger('updated_by')->Unsigned()->nullable();
